@@ -1,7 +1,7 @@
 public class Duende extends Player {
-    private static final int destreza_base = 40;
-    private static final int vida_base = 50;
-    private static final int ataque_base = 10;
+    private static final int destreza_base = 30;
+    private static final int vida_base = 15;
+    private static final int ataque_base = 5;
     private static final int defesa_base = 5;
     private static final int velocidade_base = 10;
 
