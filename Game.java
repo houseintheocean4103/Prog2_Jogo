@@ -12,13 +12,15 @@ public class Game {
 	}
 	
 	public void iniciar() {
-		
-		ArrayList<Player> herois = gerar_herois();
+		Scanner scanner = new Scanner(System.in);
+
+
+		ArrayList<Player> herois = gerar_herois(scanner);
 		ArrayList<Player> monstros = gerar_monstros();
 		
 		Turno turno = new Turno();
 		
-		turno.batalha(herois, monstros, dif);
+		turno.batalha(herois, monstros, dif, scanner);
 		
 	}
 		
@@ -28,7 +30,7 @@ public class Game {
 		Dado d = new Dado();
 		
 		for(int i = 0; i < 3;i++) {
-			int n = d.dado(3 - 1);
+			int n = d.dado(3);
 			if(n == 0) {
 				list.add(new Ogro("Ogro"));
 			}
@@ -43,31 +45,23 @@ public class Game {
 		return list;
 	}
 	
-	public ArrayList<Player> gerar_herois(){
-		
+	public ArrayList<Player> gerar_herois(Scanner scanner){
 		ArrayList<Player> list = new ArrayList<>();
-		Scanner entrada = new Scanner(System.in);
 		int h;
 		
-		System.out.println("Digite seus heróis: "
-				+ "[1] Guerreiro"
-				+ "[2] Mago"
-				+ "[3] Arqueiro");
-		
 		for(int i = 0; i < 3; i++) {
-			h = entrada.nextInt();
+			System.out.println("Digite seus heróis ["+ i + "/3]: \n[1] Guerreiro \n[2] Mago \n[3] Arqueiro");
+			h = scanner.nextInt();
 			if(h == 1) {
-				list.add(new Guerreiro("guerreiro"));
+				list.add(new Guerreiro("Guerreiro"));
 			}
 			else if(h == 2) {
-				list.add(new Mago("mago"));
+				list.add(new Mago("Mago"));
 			}
 			else if(h == 3) {
-				list.add(new Arqueiro("arqueiro"));
+				list.add(new Arqueiro("Arqueiro"));
 			}
 		}
-		
-		entrada.close();
 		return list;
 		
 	}

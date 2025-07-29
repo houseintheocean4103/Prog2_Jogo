@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class Turno {
@@ -16,60 +17,74 @@ public class Turno {
 		
 		switch(d) {
 		case FACIL:
-			for(int i = 0; i < lista_de_monstros.size(); i++) {
-				m = lista_de_monstros.get(i);
-				v = m.getVida(); 
-				m.setVida(v - ((int)v/4));
-			}
+            for (Player lista_de_monstro : lista_de_monstros) {
+                m = lista_de_monstro;
+                v = m.getVida();
+                m.setVida(v - (v / 4));
+            }
 		case DIFICIL:
-			for(int i = 0; i < lista_de_monstros.size(); i++) {
-				m = lista_de_monstros.get(i);
-				v = m.getVida(); 
-				m.setVida(v + ((int)v/4));
-			}
+            for (Player listaDeMonstro : lista_de_monstros) {
+                m = listaDeMonstro;
+                v = m.getVida();
+                m.setVida(v + (v / 4));
+            }
 		}
 	}
 	
-	public void batalha(ArrayList<Player> herois, ArrayList<Player> monstros, Dificuldade d) {
-		
-		this.multiplicadorDiff(d, monstros);
-		
-		Player pivo;
-		Player inimigo;
-		Dado r = new Dado();
-		
-		while(herois.size() != 0 & monstros.size() != 0) {
-			
-			int i = r.dado(herois.size() - 1);
-			int j = r.dado(monstros.size() - 1);
-			
-			boolean heroi_comeca = (herois.get(i).getVel() > monstros.get(j).getVel());
-			
-			if(heroi_comeca) {
-				pivo = herois.get(i);
-				inimigo = monstros.get(j);
-			} else {
-				pivo = monstros.get(j);
-				inimigo = herois.get(i);
-			}
-			
-						
-			ResultadoAtaque atq_res = pivo.realizarAtaque(inimigo);
+	public void batalha(ArrayList<Player> herois, ArrayList<Player> monstros, Dificuldade d, Scanner scanner) {
 
-			
-			System.out.printf("%s atacou %s e causou %d de dano\n\n", pivo.getNome(), inimigo.getNome(), pivo.getAtqR());
-			
-			System.out.println(pivo.toString());
-			System.out.println(inimigo.toString() + "\n");
-			
-			if(inimigo.getVida() <= 0) {
-				System.out.printf("%s foi derrotado!\n\n", inimigo.getNome());
-				if(herois.contains(inimigo)){
-					herois.remove(i);
-				} else if(monstros.contains(inimigo)) {
-					monstros.remove(j);
-				}
-			}					
+        this.multiplicadorDiff(d, monstros);
+
+
+
+		System.out.println("INIMIGOS ENCONTRADOS!");
+		for(Player monstro : monstros) {
+			System.out.println(monstro.nome+".");
+		}
+
+        ArrayList<Player> fila = new ArrayList<>(herois);
+		fila.addAll(monstros);
+
+		fila.sort((p1, p2) -> p2.destreza - p1.destreza);
+		Dado r = new Dado();
+
+		while(!herois.isEmpty() & !monstros.isEmpty()) {
+			Player alvo;
+            for(Player pivo : fila) {
+				if(!herois.isEmpty() & !monstros.isEmpty()) {
+					if(herois.contains(pivo)) {
+						System.out.println("QUEM "+pivo.nome+" VAI ATACAR?");
+						for(int i = 0; i < monstros.size(); i++) {
+							System.out.println("["+i+"]"+monstros.get(i).getNome());
+						}
+						int monstro = scanner.nextInt();
+						alvo = monstros.get(monstro);
+						pivo.realizarAtaque(alvo);
+						System.out.printf("%s atacou %s e causou %d de dano\n\n", pivo.getNome(), alvo.getNome(), pivo.getAtqR());
+
+						System.out.println(alvo + "\n");
+
+						if(alvo.getVida() <= 0) {
+							System.out.printf("%s foi derrotado!\n\n", alvo.getNome());
+							monstros.remove(alvo);
+						}
+                    } else {
+						alvo = herois.get(r.dado(herois.size()));
+						pivo.realizarAtaque(alvo);
+
+						System.out.printf("%s atacou %s e causou %d de dano\n\n", pivo.getNome(), alvo.getNome(), pivo.getAtqR());
+
+						System.out.println(alvo + "\n");
+
+						if (alvo.getVida() <= 0) {
+							System.out.printf("%s foi derrotado!\n\n", alvo.getNome());
+							herois.remove(alvo);
+						}
+                    }
+                    continue;
+                }
+				break;
+			}
 		}		
 	}
 	
