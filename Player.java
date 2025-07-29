@@ -8,6 +8,7 @@ public class Player {
 	int velocidade;
 	String nome;
 	int ataque_r = 0;
+
 	
 	public Player(int des, int vid, int ata, int def, int vel, String nom) {
 		this.destreza = des;
@@ -17,11 +18,7 @@ public class Player {
 		this.velocidade = vel;
 		this.nome = nom;
 	}
-	
-	public void setDest(int a) {
-		this.destreza = a;
-	}
-	
+
 	public int getDest() {
 		return this.destreza;
 	}
@@ -33,11 +30,7 @@ public class Player {
 	public int getVida() {
 		return this.vida;
 	}
-	
-	public void setAtq(int a) {
-		this.ataque = a;
-	}
-	
+
 	public int getAtq() {
 		return this.ataque;
 	}
@@ -45,19 +38,11 @@ public class Player {
 	public String getNome() {
 		return this.nome;
 	}
-	
-	public void setNome(String a) {
-		this.nome = a;
-	}
-	
+
 	public int getDef() {
 		return this.defesa;
 	}
-	
-	public void setDef(int a) {
-		this.defesa = a;
-	}
-	
+
 	public void setAtqR(int a) {
 		this.ataque_r = a;
 	}
@@ -65,18 +50,9 @@ public class Player {
 	public int getAtqR() {
 		return this.ataque_r;
 	}
-	
-	public int getVel() {
-		return this.velocidade;
-	}
-	
-	public void setVel(int a) {
-		this.velocidade = a;
-	}
-	
-	
-	public ResultadoAtaque realizarAtaque(Player alvo) {
-		return null;
+
+
+	public void realizarAtaque(Player alvo) {
 	}
 
 }
