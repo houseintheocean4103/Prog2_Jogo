@@ -21,15 +21,24 @@ public class Game {
 		turno.batalha(herois, monstros, dif);
 		
 	}
-	
-	
+		
 	public ArrayList<Player> gerar_monstros(){
 		
 		ArrayList<Player> list = new ArrayList<>();
+		Dado d = new Dado();
 		
-		list.add(new Ogro("monstro A"));
-		list.add(new Duende("monstro B"));
-		list.add(new Alien("monstro C"));
+		for(int i = 0; i < 3;i++) {
+			int n = d.dado(3 - 1);
+			if(n == 0) {
+				list.add(new Ogro("Ogro"));
+			}
+			else if(n == 1) {
+				list.add(new Duende("Duende"));
+			}
+			else if(n == 2) {
+				list.add(new Alien("Alien"));
+			}
+		}
 		
 		return list;
 	}

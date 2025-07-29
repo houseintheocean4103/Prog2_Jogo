@@ -34,17 +34,26 @@ public class Turno {
 		
 		this.multiplicadorDiff(d, monstros);
 		
-		int i = 0;
 		Player pivo;
 		Player inimigo;
+		Dado r = new Dado();
 		
-		while(monstros.size() != 0) {
+		while(herois.size() != 0 & monstros.size() != 0) {
 			
-			pivo = herois.get(i);
-			inimigo = monstros.get(i);
-		
+			int i = r.dado(herois.size() - 1);
+			int j = r.dado(monstros.size() - 1);
 			
+			boolean heroi_comeca = (herois.get(i).getVel() > monstros.get(j).getVel());
 			
+			if(heroi_comeca) {
+				pivo = herois.get(i);
+				inimigo = monstros.get(j);
+			} else {
+				pivo = monstros.get(j);
+				inimigo = herois.get(i);
+			}
+			
+						
 			ResultadoAtaque atq_res = pivo.realizarAtaque(inimigo);
 
 			
@@ -55,18 +64,12 @@ public class Turno {
 			
 			if(inimigo.getVida() <= 0) {
 				System.out.printf("%s foi derrotado!\n\n", inimigo.getNome());
-				monstros.remove(i);
-				i = 0;
-			}
-			
-			else if(i == monstros.size() - 1){
-				i = 0;
-			}
-			
-			else {
-				i++;
-			}
-					
+				if(herois.contains(inimigo)){
+					herois.remove(i);
+				} else if(monstros.contains(inimigo)) {
+					monstros.remove(j);
+				}
+			}					
 		}		
 	}
 	
