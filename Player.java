@@ -52,7 +52,8 @@ public class Player {
 	}
 
 
-	public void realizarAtaque(Player alvo) {
+	public ResAtq realizarAtaque(Player alvo) {
+		return null;
 	}
 
 }
